@@ -18,26 +18,28 @@ def renderMain():
 
 @app.route('/startOver')
 def startOver():
-    #clear variable values and create a new session
     session.clear()
     return redirect(url_for('renderMain')) # url_for('renderMain') could be replaced with '/'
 
-@app.route('/page1')
+@app.route('/terms')
 def renderPage1():
     return render_template('page1.html')
 
-@app.route('/page2',methods=['GET','POST'])
+@app.route('/answering',methods=['GET','POST'])
 def renderPage2():
-    #set the first and last name in the session
-    session[firstName] = request.form["firstName"]
-    session[lastName] = request.form["lastName"]
+    session[vocabTerms1] = request.form["vocabTerms1"]
+    session[vocabTerms2] = request.form["vocabTerms2"]
     return render_template('page2.html')
     
-@app.route('/page3',methods=['GET','POST'])
+@app.route('/correctornot',methods=['GET','POST'])
 def renderPage3():
-    #set the favorite color in the session
-    session[favoriteColor] = request.form["favoriteColor"]
+    session[vocabAnswers] = request.form["vocabAnswers"]
     return render_template('page3.html')
+  
+@app.route('/grading',methods=['GET','POST'])
+def renderPage4():
+    session[grade] = request.form["grade"]
+    return render_template('page4.html')
     
 if __name__=="__main__":
     app.run(debug=False)
